@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBackEnd", "GameBackEnd.csproj", "{D8A97AC9-62B7-4A87-95F7-276FA4D2A998}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBackEnd", "GameBackEnd.csproj", "{C55E0A70-596F-418C-A599-BC0E2DEA04C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D8A97AC9-62B7-4A87-95F7-276FA4D2A998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8A97AC9-62B7-4A87-95F7-276FA4D2A998}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8A97AC9-62B7-4A87-95F7-276FA4D2A998}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8A97AC9-62B7-4A87-95F7-276FA4D2A998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C55E0A70-596F-418C-A599-BC0E2DEA04C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55E0A70-596F-418C-A599-BC0E2DEA04C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55E0A70-596F-418C-A599-BC0E2DEA04C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55E0A70-596F-418C-A599-BC0E2DEA04C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6E8F6FA6-B372-4242-B2E4-3383998E54FA}
+		SolutionGuid = {5C686A1F-BFA3-4052-A8B5-67AAB35E123B}
 	EndGlobalSection
 EndGlobal
