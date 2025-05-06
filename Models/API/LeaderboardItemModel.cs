@@ -1,6 +1,6 @@
-﻿namespace GameBackEnd.Models
+﻿namespace GameBackEnd.Models.API
 {
-    public class LeaderboardItem
+    public class LeaderboardItemModel
     {
         public int Rank { get; set; }
         public string UserName { get; set; }

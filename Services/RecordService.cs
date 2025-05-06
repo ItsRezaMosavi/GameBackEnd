@@ -1,5 +1,6 @@
 ﻿using GameBackEnd.Data;
 using GameBackEnd.Models;
+using GameBackEnd.Models.API;
 using GameBackEnd.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ namespace GameBackEnd.Services
             _userService = userService;
         }
 
-        public async Task<ServiceResult> SubmitRecordAsync(SubmitScoreRequest ScoreRequest)
+        public async Task<ServiceResult> SubmitRecordAsync(SubmitScoreRequestModel ScoreRequest)
         {
             // check the user authentication
             User? user = await _userService.GetUserByUserNameAsync(ScoreRequest.UserName);
@@ -41,12 +42,12 @@ namespace GameBackEnd.Services
                 return ServiceResult.Failure("Server Error");
             }
         }
-        public async Task<LeaderboardItem?> GetUserRankAsync(User user)
+        public async Task<LeaderboardItemModel?> GetUserRankAsync(User user)
         {
             var ranked = await GetRankedLeaderboardAsync();
             return ranked.Where(r => r.UserName == user.UserName).FirstOrDefault();
         }
-        public async Task<List<LeaderboardItem>?> GetRankedLeaderboardAsync()
+        public async Task<List<LeaderboardItemModel>?> GetRankedLeaderboardAsync()
         {
             try
             {
@@ -67,18 +68,20 @@ namespace GameBackEnd.Services
 
                 int rank = 0;
                 int? previousScore = null;
-                List<LeaderboardItem> ranked = new List<LeaderboardItem>();
+                List<LeaderboardItemModel> ranked = new List<LeaderboardItemModel>();
                 foreach (var item in Items)
                 {
                     if (previousScore == null || item.BestScore < previousScore)
                         rank++;
-                    ranked.Add(new LeaderboardItem
+                    ranked.Add(new LeaderboardItemModel
                     {
                         Rank = rank,
                         UserName = item.UserName,
                         BestScore = item.BestScore
                     });
                     previousScore = item.BestScore;
+                    if (ranked.Count == 10)
+                        break;
                 }
                 return ranked;
             }

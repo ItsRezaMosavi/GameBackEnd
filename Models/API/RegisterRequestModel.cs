@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GameBackEnd.Models
+namespace GameBackEnd.Models.API
 {
-    public class RegisterRequest
+    public class RegisterRequestModel
     {
+
         [Required(ErrorMessage = "Email is necessary!")]
         [EmailAddress(ErrorMessage = "Email format is not correct!")]
         public string Email { get; set; }
@@ -19,7 +20,6 @@ namespace GameBackEnd.Models
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$",
             ErrorMessage = "password must contain capital and non-capital words and numbers!")]
         public string Password { get; set; }
-
 
     }
 }

@@ -1,7 +1,9 @@
 ﻿using GameBackEnd.Models;
 using GameBackEnd.Models.API;
 using GameBackEnd.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace GameBackEnd.Controllers
 {
@@ -15,18 +17,19 @@ namespace GameBackEnd.Controllers
             _authService = authService;
         }
 
+
+        [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequest model)
+        public async Task<ActionResult<AuthResponseModel>> RegisterAsync([FromBody] RegisterRequestModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                ServiceResult result = await _authService.RegisterAsync(model);
-                if (result.IsSuccess)
-                    return Ok(result.Message);
-                else
-                    return Problem(title: result.Message, statusCode: 500);
+                var result = await _authService.RegisterAsync(request);
+                if (result is null)
+                    return Unauthorized();
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -34,15 +37,16 @@ namespace GameBackEnd.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginRequestModel model)
+        public async Task<ActionResult<AuthResponseModel>> LoginAsync([FromBody] LoginRequestModel request)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            var result = await _authService.LoginAsync(model);
-            if(!result.IsSuccess)
-                return BadRequest(result.Message);
-            return Ok(result.Message);
-            //////////////////////////////////////////////////
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var result = await _authService.LoginAsync(request);
+            if (result is null)
+                return Unauthorized();
+            return result;
         }
     }
 }

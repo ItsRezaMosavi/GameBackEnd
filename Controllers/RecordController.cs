@@ -1,13 +1,15 @@
 ﻿using GameBackEnd.Models;
 using GameBackEnd.Models.Entities;
+using GameBackEnd.Models.API;
 using GameBackEnd.Services;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RecordController : ControllerBase
     {
         private readonly RecordService _recordService;
@@ -17,7 +19,7 @@ namespace GameBackEnd.Controllers
         }
 
         [HttpPost("SubmitScore")]
-        public async Task<IActionResult> SubmitScoreAsync([FromBody] SubmitScoreRequest ScoreRequest)
+        public async Task<IActionResult> SubmitScoreAsync([FromBody] SubmitScoreRequestModel ScoreRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -49,7 +51,7 @@ namespace GameBackEnd.Controllers
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
-            LeaderboardItem? userrank = await _recordService.GetUserRankAsync(user);
+            LeaderboardItemModel? userrank = await _recordService.GetUserRankAsync(user);
             return Ok(userrank);
         }
     }

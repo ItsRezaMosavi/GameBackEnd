@@ -38,7 +38,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<RecordService>();
 builder.Services.AddScoped<UserService>();
-
+builder.Services.AddScoped<JwtService>();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 

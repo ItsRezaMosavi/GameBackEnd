@@ -1,6 +1,6 @@
 ﻿namespace GameBackEnd.Models.API
 {
-    public class LoginResponseModel
+    public class AuthResponseModel
     {
         public string? UserName {  get; set; }
         public string? AccessToken { get; set; }

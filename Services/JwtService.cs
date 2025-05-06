@@ -20,12 +20,8 @@ namespace GameBackEnd.Services
             _configuration = configuration;
         }
 
-
-        public async Task<LoginResponseModel?> Authenticate(LoginRequestModel request)
+        public (string?, DateTime) CreateToken(string UserName, string Email)
         {
-            User? user = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
-            if (user is null || !PasswordHashHandler.VerifyPassword(request.Password, user.PasswordHash))
-                return null;
             var jwtsettings = _configuration.GetSection("JWT");
             var issuer = jwtsettings.GetValue<string>("Issuer");
             var audience = jwtsettings.GetValue<string>("Audience");
@@ -37,8 +33,8 @@ namespace GameBackEnd.Services
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Name,user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Email,user.Email)
+                    new Claim(JwtRegisteredClaimNames.Name,UserName),
+                    new Claim(JwtRegisteredClaimNames.Email,Email)
                 }),
                 Expires = tokenExpiryTimeStamp,
                 Issuer = issuer,
@@ -50,12 +46,8 @@ namespace GameBackEnd.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             var accessToken = tokenHandler.WriteToken(securityToken);
-            return new LoginResponseModel
-            {
-                UserName = user.UserName,
-                AccessToken = accessToken,
-                ExpiresIn = (int)tokenExpiryTimeStamp.Subtract(DateTime.UtcNow).TotalSeconds
-            };
+            return (accessToken, tokenExpiryTimeStamp);
         }
+
     }
 }

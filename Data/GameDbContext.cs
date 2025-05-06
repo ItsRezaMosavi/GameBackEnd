@@ -1,4 +1,5 @@
-﻿using GameBackEnd.Models.Entities;
+﻿using GameBackEnd.Handlers;
+using GameBackEnd.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 namespace GameBackEnd.Data
 {

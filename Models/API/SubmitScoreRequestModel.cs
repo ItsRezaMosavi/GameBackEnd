@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace GameBackEnd.Models
+namespace GameBackEnd.Models.API
 {
-    public class SubmitScoreRequest
+    public class SubmitScoreRequestModel
     {
         [Required(ErrorMessage = "User Name is necessary!")]
         [StringLength(maximumLength: 20, ErrorMessage = "User Name is not  valid", MinimumLength = 3)]

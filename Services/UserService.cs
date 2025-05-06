@@ -25,5 +25,14 @@ namespace GameBackEnd.Services
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == Email);
         }
 
+        public async Task<bool> DoesEmailExistAsync(string Email)
+        {
+            return await _context.Users.AnyAsync(u => u.Email == Email);
+        }
+        public async Task<bool> DoesUserNameExistAsync(string UserName)
+        {
+            return await _context.Users.AnyAsync(u => u.UserName == UserName);
+        }
+
     }
 }
