@@ -1,4 +1,5 @@
 ﻿using GameBackEnd.Models;
+using GameBackEnd.Models.Entities;
 using GameBackEnd.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

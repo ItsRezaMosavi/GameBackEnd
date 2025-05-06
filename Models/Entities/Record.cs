@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GameBackEnd.Models
+namespace GameBackEnd.Models.Entities
 {
     public class Record
     {

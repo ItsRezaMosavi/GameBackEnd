@@ -1,4 +1,5 @@
 ﻿using GameBackEnd.Models;
+using GameBackEnd.Models.API;
 using GameBackEnd.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ namespace GameBackEnd.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginRequest model)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginRequestModel model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var result = await _authService.LoginAsync(model);
