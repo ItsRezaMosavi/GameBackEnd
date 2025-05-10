@@ -9,12 +9,9 @@ namespace GameBackEnd.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
         [Required]
         public int Score { get; set; } = 0;
-        [Required]
-        public DateTime DateTime { get; set; }
-
         public User user { get; set; }
     }
 }

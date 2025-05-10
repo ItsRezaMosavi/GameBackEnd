@@ -1,11 +1,8 @@
 ﻿using BCrypt.Net;
 using GameBackEnd.Data;
-using GameBackEnd.Models;
-using GameBackEnd.Models.Entities;
 using GameBackEnd.Models.API;
+using GameBackEnd.Models.Entities;
 using Microsoft.EntityFrameworkCore;
-using Azure.Core;
-using GameBackEnd.Handlers;
 
 namespace GameBackEnd.Services
 {
@@ -23,14 +20,14 @@ namespace GameBackEnd.Services
             if (await _context.Users.AnyAsync(u => u.Email == request.Email))
                 throw new Exception("This Email has already been registered!");
             if (await _context.Users.AnyAsync(u => u.UserName == request.UserName))
-                throw new Exception("Username has been taken!");
+                throw new Exception(message: "Username has been taken!");
             try
             {
                 User user = new User
                 {
                     Email = request.Email,
                     UserName = request.UserName,
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password)
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password, BCrypt.Net.BCrypt.GenerateSalt(12))
                 };
                 await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
@@ -49,7 +46,7 @@ namespace GameBackEnd.Services
         public async Task<AuthResponseModel> LoginAsync(LoginRequestModel request)
         {
             User? user = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
-            if (user is null || !PasswordHashHandler.VerifyPassword(request.Password, user.PasswordHash))
+            if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 return null;
             var result = _jwtService.CreateToken(user.UserName, user.Email);
             return new AuthResponseModel

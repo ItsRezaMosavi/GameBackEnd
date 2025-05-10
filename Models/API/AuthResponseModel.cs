@@ -1,9 +1,15 @@
-﻿namespace GameBackEnd.Models.API
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GameBackEnd.Models.API
 {
     public class AuthResponseModel
     {
-        public string? UserName {  get; set; }
-        public string? AccessToken { get; set; }
-        public int ExpiresIn { get; set; }
+        [Required]
+        public string UserName {  get; set; }
+        [Required]
+        public string AccessToken {  get; set; }
+        [Required]
+        [Range(0,int.MaxValue)]
+        public int ExpiresIn {  get; set; }
     }
 }

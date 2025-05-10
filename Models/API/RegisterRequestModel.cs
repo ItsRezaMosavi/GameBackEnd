@@ -17,9 +17,9 @@ namespace GameBackEnd.Models.API
         [Required(ErrorMessage = "Password is necessary")]
         [DataType(DataType.Password)]
         [MinLength(8, ErrorMessage = "password length must be at least 8 character")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$",
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)\S{8,}$",
             ErrorMessage = "password must contain capital and non-capital words and numbers!")]
-        public string Password { get; set; }
+        public string Password{ get; set; }
 
     }
 }

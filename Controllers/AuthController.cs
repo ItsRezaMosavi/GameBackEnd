@@ -1,9 +1,7 @@
-﻿using GameBackEnd.Models;
-using GameBackEnd.Models.API;
+﻿using GameBackEnd.Models.API;
 using GameBackEnd.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 
 namespace GameBackEnd.Controllers
 {
@@ -46,7 +44,7 @@ namespace GameBackEnd.Controllers
             var result = await _authService.LoginAsync(request);
             if (result is null)
                 return Unauthorized();
-            return result;
+            return Ok(result);
         }
     }
 }

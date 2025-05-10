@@ -2,10 +2,13 @@
 using GameBackEnd.Models;
 using GameBackEnd.Models.API;
 using GameBackEnd.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace GameBackEnd.Services
 {
+    [Authorize]
     public class RecordService
     {
         private readonly GameDbContext _context;
@@ -18,7 +21,7 @@ namespace GameBackEnd.Services
 
         public async Task<ServiceResult> SubmitRecordAsync(SubmitScoreRequestModel ScoreRequest)
         {
-            // check the user authentication
+            
             User? user = await _userService.GetUserByUserNameAsync(ScoreRequest.UserName);
             if (user == null)
                 throw new Exception("user can not be null");
@@ -29,7 +32,6 @@ namespace GameBackEnd.Services
                 {
                     UserId = user.Id,
                     Score = ScoreRequest.Score,
-                    DateTime = DateTime.Now,
                     user = user
                 };
 
@@ -45,9 +47,9 @@ namespace GameBackEnd.Services
         public async Task<LeaderboardItemModel?> GetUserRankAsync(User user)
         {
             var ranked = await GetRankedLeaderboardAsync();
-            return ranked.Where(r => r.UserName == user.UserName).FirstOrDefault();
+            return ranked.Items.Where(r => r.UserName == user.UserName).FirstOrDefault();
         }
-        public async Task<List<LeaderboardItemModel>?> GetRankedLeaderboardAsync()
+        public async Task<LeaderboardResponseModel> GetRankedLeaderboardAsync()
         {
             try
             {
@@ -62,28 +64,28 @@ namespace GameBackEnd.Services
                       u => u.Id,
                       (s, u) => new
                       {
-                          UserName = u.UserName,
+                          username = u.UserName,
                           BestScore = s.bestScore
                       }).ToListAsync();
 
                 int rank = 0;
                 int? previousScore = null;
-                List<LeaderboardItemModel> ranked = new List<LeaderboardItemModel>();
+                LeaderboardResponseModel result = new LeaderboardResponseModel();
                 foreach (var item in Items)
                 {
                     if (previousScore == null || item.BestScore < previousScore)
                         rank++;
-                    ranked.Add(new LeaderboardItemModel
+                    result.Items.Add(new LeaderboardItemModel
                     {
                         Rank = rank,
-                        UserName = item.UserName,
+                        UserName = item.username,
                         BestScore = item.BestScore
                     });
                     previousScore = item.BestScore;
-                    if (ranked.Count == 10)
+                    if (rank == 10)
                         break;
                 }
-                return ranked;
+                return result;
             }
             catch
             {

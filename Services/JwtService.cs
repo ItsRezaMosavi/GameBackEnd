@@ -1,8 +1,4 @@
 ﻿using GameBackEnd.Data;
-using GameBackEnd.Handlers;
-using GameBackEnd.Models.API;
-using GameBackEnd.Models.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
