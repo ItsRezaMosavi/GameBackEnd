@@ -41,10 +41,11 @@ dotnet run
 	+ Set Server Address in ``` ApiUrl.cs ``` : 
 	  ``` public static string apiBaseUrl = "https://localhost:7221/api/"; ```
 	+ Configuration Server (```appsettings.json```) : 
-	*Set database Connection string*
-	```json "ConnectionStrings": {
+	Set database Connection string
+	``` bash "ConnectionStrings": {
     "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=LeaderboardDB;Trusted_Connection=True;"
-  } ```
+  } 
+
 ## How to Use
 - Register New User
 ```
