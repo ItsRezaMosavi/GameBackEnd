@@ -1,5 +1,4 @@
-﻿using BCrypt.Net;
-using GameBackEnd.Data;
+﻿using GameBackEnd.Data;
 using GameBackEnd.Models.API;
 using GameBackEnd.Models.Entities;
 using Microsoft.EntityFrameworkCore;

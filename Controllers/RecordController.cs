@@ -52,14 +52,14 @@ namespace GameBackEnd.Controllers
                 return Problem(title: "server Error", statusCode: 500);
             return Ok(response);
         }
-        [Authorize]
-        [HttpGet("GetUserRank")]
-        public async Task<IActionResult> GetUserRank([FromBody] User user)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            LeaderboardItemModel? userrank = await _recordService.GetUserRankAsync(user);
-            return Ok(userrank);
-        }
+        //[Authorize]
+        //[HttpGet("GetUserRank")]
+        //public async Task<IActionResult> GetUserRank([FromBody] User user)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+        //    LeaderboardItemModel? userrank = await _recordService.GetUserRankAsync(user);
+        //    return Ok(userrank);
+        //}
     }
 }

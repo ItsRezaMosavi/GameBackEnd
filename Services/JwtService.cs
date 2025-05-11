@@ -8,11 +8,9 @@ namespace GameBackEnd.Services
 {
     public class JwtService
     {
-        private readonly GameDbContext _context;
         private readonly IConfiguration _configuration;
-        public JwtService(GameDbContext context, IConfiguration configuration)
+        public JwtService(IConfiguration configuration)
         {
-            _context = context;
             _configuration = configuration;
         }
 

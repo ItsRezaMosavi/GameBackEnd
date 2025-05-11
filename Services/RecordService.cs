@@ -44,11 +44,11 @@ namespace GameBackEnd.Services
                 return ServiceResult.Failure("Server Error");
             }
         }
-        public async Task<LeaderboardItemModel?> GetUserRankAsync(User user)
-        {
-            var ranked = await GetRankedLeaderboardAsync();
-            return ranked.Items.Where(r => r.UserName == user.UserName).FirstOrDefault();
-        }
+        //public async Task<LeaderboardItemModel?> GetUserRankAsync(User user)
+        //{
+        //    var ranked = await GetRankedLeaderboardAsync();
+        //    return ranked.Items.Where(r => r.UserName == user.UserName).FirstOrDefault();
+        //}
         public async Task<LeaderboardResponseModel> GetRankedLeaderboardAsync()
         {
             try
